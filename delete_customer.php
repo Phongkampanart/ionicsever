@@ -11,27 +11,24 @@ $dbname = 'ionicapp';
 $connect = new mysqli($servername, $username, $password, $dbname);
 $connect->set_charset('utf8');
 
-if($connect->connect_error){
-    die("การเชื่อมต่อผิดพลาด  :".$connect->connect_error);
+if ($connect->connect_error) {
+    die("การเชื่อมต่อผิดพลาด : " . $connect->connect_error);
 }
 
+$id = $_GET["id"];
 
+$sql = "delete from customers where id = $id";
 
+// $result = $connect->query($sql);
 
-    $id = $_GET["id"];
+if ($connect->query($sql) === true) {
+    $connect->close();
+    return true;
 
-
-    $sql = "delete from customers where id = $id";
-
-    if($connect->query($sql) === TRUE){
-        $connect->close();
-        return true;
-    } else {
-        $connect->close();
-        return $connect->error;
-    }
-
+} else {
+    $connect->close();
+    return $connect->error;
 
     $connect->close();
 
-?>
+}

@@ -11,34 +11,30 @@ $dbname = 'ionicapp';
 $connect = new mysqli($servername, $username, $password, $dbname);
 $connect->set_charset('utf8');
 
-if($connect->connect_error){
-    die("การเชื่อมต่อผิดพลาด  :".$connect->connect_error);
+if ($connect->connect_error) {
+    die("การเชื่อมต่อผิดพลาด : " . $connect->connect_error);
 }
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-if(count($data) > 0){
-    $customerid = $data["customerid"];
-    $customername = $data["customername"];
-    $customerlastname = $data["customerlastname"];
-    $customeraddress = $data["customeraddress"];
-    $customertel = $data["customertel"];
+if (count($data) > 0) {
+    $c_id = $data["c_id"];
+    $c_name = $data["c_name"];
+    $c_lastname = $data["c_lastname"];
+    $c_address = $data["c_address"];
+    $c_tel = $data["c_tel"];
 
     $sql = "insert into customers
-            (customerid, customername, customerlastname, customeraddress, customertel )
-        values
-            ('$customerid', '$customername', '$customerlastname', '$customeraddress', '$customertel')
-            ";
-
-    if($connect->query($sql) === TRUE){
+                (c_id, c_name, c_lastname, c_address, c_tel)
+            values
+                ('$c_id','$c_name', '$c_lastname', '$c_address', '$c_tel')
+                ";
+    if ($connect->query($sql) === true) {
         $connect->close();
         return true;
     } else {
         $connect->close();
         return $connect->error;
     }
-}
-
     $connect->close();
-
-?>
+}
